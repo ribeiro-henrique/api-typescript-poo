@@ -1,6 +1,6 @@
 import {
   CreationOptional, DataTypes, InferAttributes,
-  InferCreationAttributes, Model
+  InferCreationAttributes, Model,
 } from 'sequelize';
 
 import db from '.';
@@ -13,28 +13,28 @@ InferCreationAttributes<Team>> {
 }
 
 // Inicializa o modelo Team com os campos 'id' e 'teamName'
-Team.init({
-  id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    primaryKey: true,
-    autoIncrement: true,
+Team.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+
+    teamName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
   },
-
-  teamName: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  // Configurações do model
+  {
+    sequelize: db,
+    modelName: 'team',
+    timestamps: false,
+    underscored: true, // Usa snake_case para os nomes das colunas no banco de dados
   },
-
-},
-// Configurações do model
-{
-  sequelize: db,
-  modelName: 'team',
-  timestamps: false,
-  underscored: true, // Usa snake_case para os nomes das colunas no banco de dados
-});
-
-
+);
 
 export default Team;
