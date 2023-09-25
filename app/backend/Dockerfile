@@ -5,7 +5,7 @@ WORKDIR /app-backend
 # Copiar os package.json, package-lock.json e packages.npm para o container
 COPY package*.json /app-backend/
 # Instalar as dependências Node
-RUN npm i
+RUN npm install
 # Copiar o restante dos arquivos da aplicação para o container
 COPY . /app-backend/
 # Sinalize que aplicação expõe a porta 3001
