@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import AddNewMatchBtn from '../components/AddNewMatchBtn';
+import GamerFilter from '../components/GameFilter';
 import GamesTable from '../components/GamesTable';
 import Header from '../components/Header';
-import AddNewMatchBtn from '../components/AddNewMatchBtn';
 import LeaderboardBtn from '../components/LeaderboardBtn';
 import LoginBtn from '../components/LoginBtn';
-import GamerFilter from '../components/GameFilter';
 import '../styles/pages/games.css';
+
+// iniciando o projeto hehe
 
 const Games = () => {
   const [currentFilter, setCurrentFilter] = useState('Status do Jogo');
