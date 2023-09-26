@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import mapStatusHTTP from '../utils/mapStatusHTTP';
 import TeamService from '../services/teams.service';
 
 export default class TeamController {
@@ -7,7 +8,13 @@ export default class TeamController {
   ) { }
 
   public async findAll(_req: Request, res: Response) {
-    const serviceResponse = await this.teamService.findAll();
-    res.status(200).json(serviceResponse.data);
+    const { status, data } = await this.teamService.findAll();
+    res.status(mapStatusHTTP(status)).json(data);
+  }
+
+  public async findById(req: Request, res: Response) {
+    const { id } = req.params;
+    const { status, data } = await this.teamService.findById(Number(id));
+    res.status(mapStatusHTTP(status)).json(data);
   }
 }

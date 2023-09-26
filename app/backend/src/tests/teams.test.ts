@@ -56,6 +56,16 @@ describe('TDD de Teams', function () {
       "id": 3,
       "teamName": "Botafogo"
     });
+  })
 
+  it('should return not found if id doesnt exists', async () => {
+    sinon.stub(Teams, 'findOne').resolves(null);
+
+    const { status, body } = await chai
+    .request(app)
+    .get('/teams/55');
+
+    expect(status).to.equal(404);
+    expect(body.message).to.equal('Team 55 not found');
   })
 });
