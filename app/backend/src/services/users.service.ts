@@ -14,7 +14,7 @@ export default class UserService {
   public async login(email: string, password: string): Promise<ServiceResponse<string>> {
     const user = await this.userModel.findOne(email);
 
-    if (!user || bcrypt.compareSync(password, user.password)) {
+    if (!user || !bcrypt.compareSync(password, user.password)) {
       return { status: 'UNAUTHORIZED', data: { message: 'Invalid email or password' } };
     }
 
