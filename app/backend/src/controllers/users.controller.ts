@@ -8,8 +8,8 @@ export default class UserController {
   ) {}
 
   public async login(req: Request, res: Response) {
-    const { email } = req.body;
-    const { status, data } = await this.userService.create(email);
-    res.status(mapStatusHTTP(status)).json(data);
+    const { email, password } = req.body;
+    const { status, data } = await this.userService.login(email, password);
+    return res.status(mapStatusHTTP(status)).json(data);
   }
 }

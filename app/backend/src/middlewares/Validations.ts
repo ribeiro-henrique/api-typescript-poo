@@ -28,15 +28,15 @@ import { NextFunction, Request, Response } from 'express';
 export default class Validations {
   static validateLogin(req: Request, res: Response, next: NextFunction): Response | void {
     const { email, password } = req.body;
+    const mailRegex = /^[a-z0-9.]+@[a-z0-9]+\.([a-z]+)?$/i;
 
-    if (!email || typeof email !== 'string') {
-      return res.status(400).json({ message: 'E-mail inválido' });
+    if (!email || !password) {
+      return res.status(400).json({ message: 'All fields must be filled' });
     }
 
-    if (!password || typeof password !== 'string') {
-      return res.status(400).json({ message: 'Senha inválida' });
+    if (!mailRegex.test(email) || password.length < 6) {
+      return res.status(400).json({ message: 'Invalid email or password' });
     }
-
     next();
   }
 }
