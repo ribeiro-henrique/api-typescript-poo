@@ -21,7 +21,7 @@ export default class Jwt {
   // Método para verificar a validade de um token
   static verifyToken(token: string): jwt.JwtPayload | null {
     try {
-      const payload = jwt.verify(token, this.secret) as jwt.JwtPayload;
+      const payload = jwt.verify(token, Jwt.secret) as jwt.JwtPayload;
       return payload;
     } catch (error) {
       // Se o token não for válido, retornamos null

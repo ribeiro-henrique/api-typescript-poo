@@ -12,15 +12,13 @@ export default class TokenValidation {
 
     const token = authorization.split(' ')[1];
 
-    try {
-      const decoded = Jwt.verifyToken(token);
+    const decoded = Jwt.verifyToken(token);
 
-      req.body.token = decoded;
-
-      next();
-    } catch (error) {
+    if (decoded === null) {
       return res.status(401).json({ message: 'Token must be a valid token' });
     }
+
+    req.body.token = decoded;
 
     next();
   }

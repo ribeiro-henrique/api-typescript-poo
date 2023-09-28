@@ -11,7 +11,7 @@ export default class UserService {
     private userModel: IUserModel = new UserModel(),
   ) {}
 
-  public async login(email: string, password: string): Promise<ServiceResponse<string>> {
+  public async login(email: string, password: string): Promise<ServiceResponse<{ token: string }>> {
     const user = await this.userModel.findOne(email);
 
     if (!user || !bcrypt.compareSync(password, user.password)) {
@@ -20,6 +20,6 @@ export default class UserService {
 
     const { id, role } = user;
     const token = Jwt.generateToken({ id, role });
-    return { status: 'SUCCESSFUL', data: token };
+    return { status: 'SUCCESSFUL', data: { token } };
   }
 }

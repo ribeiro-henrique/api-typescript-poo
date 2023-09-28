@@ -9,7 +9,6 @@ const usersRoute = Router();
 usersRoute.get(
   '/role',
   TokenValidation.validateToken,
-
   (req: Request, res: Response) => UserController.getRole(req, res),
 );
 
