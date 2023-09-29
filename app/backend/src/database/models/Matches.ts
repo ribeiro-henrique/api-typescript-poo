@@ -8,6 +8,7 @@ import {
 
 import db from '.';
 // import OtherModel from './OtherModel';
+import Team from './Teams';
 
 class Matches extends Model<InferAttributes<Matches>,
 InferCreationAttributes<Matches>> {
@@ -32,6 +33,10 @@ Matches.init(
     homeTeamId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'teams',
+        key: 'id',
+      },
     },
     homeTeamGoals: {
       type: DataTypes.INTEGER,
@@ -44,6 +49,10 @@ Matches.init(
     awayTeamGoals: {
       type: DataTypes.INTEGER,
       allowNull: true,
+      references: {
+        model: 'teams',
+        key: 'id',
+      },
     },
     inProgress: {
       type: DataTypes.BOOLEAN,
@@ -58,5 +67,11 @@ Matches.init(
     underscored: true, // Usa snake_case para os nomes das colunas no banco de dados
   },
 );
+
+Team.hasMany(Matches, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+Team.hasMany(Matches, { foreignKey: 'awayTeamId', as: 'awayTeam' });
+
+Matches.belongsTo(Team, { foreignKey: 'homeTeamId', as: 'homeTeam' });
+Matches.belongsTo(Team, { foreignKey: 'awayTeamId', as: 'awayTeam' });
 
 export default Matches;
