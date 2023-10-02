@@ -26,6 +26,16 @@ export default class MatcheModel implements IMatcheModel {
     });
     return dbData;
   }
+
+  async finishById(id: number): Promise<number> {
+    // Atualize o estado da partida para 'inProgress: false' no banco de dados.
+    const [updatedRowsCount] = await this.model.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+
+    return updatedRowsCount;
+  }
 }
 
 // conteúdo conforme sessão 10 xD

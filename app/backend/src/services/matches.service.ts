@@ -18,4 +18,13 @@ export default class MatcheService {
     const matchesInProgress = await this.matcheModel.inProgress(inProgress);
     return { status: 'SUCCESSFUL', data: matchesInProgress };
   }
+
+  public async finishById(id: number): Promise<ServiceResponse<string>> {
+    const updatedMatches = await this.matcheModel.finishById(id);
+
+    if (updatedMatches === 0) {
+      return { status: 'SUCCESSFUL', data: 'Deu ruim' };
+    }
+    return { status: 'SUCCESSFUL', data: 'Finished' };
+  }
 }
