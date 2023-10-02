@@ -2,7 +2,7 @@ import { IMatche } from './IMatche';
 
 export interface IMatcheModel {
   findAll(): Promise<IMatche[]>;
-  // findById(id: ITeam['id']): Promise<ITeam | null>
+  inProgress(inProgress: boolean): Promise<IMatche[]>;
 }
 
 // essa interface é para o retorno da model,

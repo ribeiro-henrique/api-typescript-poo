@@ -10,7 +10,12 @@ export default class MatcheService {
   ) {}
 
   public async findAll(): Promise<ServiceResponse<IMatche[]>> {
-    const allTeams = await this.matcheModel.findAll();
-    return { status: 'SUCCESSFUL', data: allTeams };
+    const allMatches = await this.matcheModel.findAll();
+    return { status: 'SUCCESSFUL', data: allMatches };
+  }
+
+  public async inProgress(inProgress: boolean): Promise<ServiceResponse<IMatche[]>> {
+    const matchesInProgress = await this.matcheModel.inProgress(inProgress);
+    return { status: 'SUCCESSFUL', data: matchesInProgress };
   }
 }

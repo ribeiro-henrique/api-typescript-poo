@@ -7,8 +7,33 @@ export default class MatchesController {
     private matcheService = new MatcheService(),
   ) { }
 
-  public async findAll(_req: Request, res: Response) {
-    const { status, data } = await this.matcheService.findAll();
-    res.status(mapStatusHTTP(status)).json(data);
+  public async findAll(req: Request, res: Response) {
+    const { inProgress } = req.query;
+    let response;
+    console.log(Boolean(inProgress));
+
+    // switch (inProgress) {
+    //   case true:
+    //     response = await this.matcheService.inProgress(true);
+    //     break;
+
+    //   case false:
+    //     response = await this.matcheService.inProgress(false);
+    //     break;
+
+    //   default:
+    //     response = await this.matcheService.findAll();
+    //     break;
+    // }
+    // const { status, data } = response;
+    // return res.status(mapStatusHTTP(status)).json(data);
+
+    if (inProgress == null || inProgress === '') {
+      response = await this.matcheService.findAll();
+    } else {
+      response = await this.matcheService.inProgress(inProgress === 'true');
+    }
+    const { status, data } = response;
+    return res.status(mapStatusHTTP(status)).json(data);
   }
 }

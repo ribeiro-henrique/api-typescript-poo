@@ -15,6 +15,17 @@ export default class MatcheModel implements IMatcheModel {
     });
     return dbData;
   }
+
+  async inProgress(inProgress: boolean): Promise<IMatche[]> {
+    const dbData = await this.model.findAll({
+      where: { inProgress },
+      include: [
+        { model: Team, as: 'homeTeam', attributes: ['teamName'] },
+        { model: Team, as: 'awayTeam', attributes: ['teamName'] },
+      ],
+    });
+    return dbData;
+  }
 }
 
 // conteúdo conforme sessão 10 xD
