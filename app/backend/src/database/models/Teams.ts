@@ -34,7 +34,7 @@ Team.init(
   // Configurações do model
   {
     sequelize: db,
-    modelName: 'team',
+    modelName: 'teams',
     timestamps: false,
     underscored: true, // Usa snake_case para os nomes das colunas no banco de dados
   },
