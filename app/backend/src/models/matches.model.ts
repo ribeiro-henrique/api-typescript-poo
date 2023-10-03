@@ -36,6 +36,21 @@ export default class MatcheModel implements IMatcheModel {
 
     return updatedRowsCount;
   }
+
+  async updateMatch(
+    id: number,
+    matche: { homeTeamGoals: number; awayTeamGoals: number },
+  ): Promise<number> {
+    const [updatedRowsCount] = await this.model.update(
+      {
+        homeTeamGoals: matche.homeTeamGoals,
+        awayTeamGoals: matche.awayTeamGoals,
+      },
+      { where: { id } },
+    );
+
+    return updatedRowsCount;
+  }
 }
 
 // conteúdo conforme sessão 10 xD

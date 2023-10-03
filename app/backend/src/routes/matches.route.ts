@@ -13,4 +13,10 @@ matchesRoute.patch(
   (req: Request, res: Response) => matchesController.finishById(req, res),
 );
 
+matchesRoute.patch(
+  '/:id',
+  TokenValidation.validateToken,
+  (req: Request, res: Response) => matchesController.updateMatch(req, res),
+);
+
 export default matchesRoute;

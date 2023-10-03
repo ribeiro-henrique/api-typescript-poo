@@ -27,4 +27,16 @@ export default class MatcheService {
     }
     return { status: 'SUCCESSFUL', data: 'Finished' };
   }
+
+  public async updateMatch(
+    id: number,
+    matche: { homeTeamGoals: number; awayTeamGoals: number },
+  ): Promise<ServiceResponse<string>> {
+    const updatedMatches = await this.matcheModel.updateMatch(id, matche);
+
+    if (updatedMatches === 0) {
+      return { status: 'SUCCESSFUL', data: 'Deu ruim' };
+    }
+    return { status: 'SUCCESSFUL', data: 'Atualizado' };
+  }
 }
