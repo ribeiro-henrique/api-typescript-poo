@@ -19,4 +19,10 @@ matchesRoute.patch(
   (req: Request, res: Response) => matchesController.updateMatch(req, res),
 );
 
+matchesRoute.post(
+  '/',
+  TokenValidation.validateToken,
+  (req: Request, res: Response) => matchesController.createMatch(req, res),
+);
+
 export default matchesRoute;

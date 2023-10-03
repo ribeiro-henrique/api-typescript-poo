@@ -53,6 +53,24 @@ export default class MatcheModel implements IMatcheModel {
 
     return updatedRowsCount;
   }
+
+  async createMatch(matchData: {
+    homeTeamId: number;
+    awayTeamId: number;
+    homeTeamGoals: number;
+    awayTeamGoals: number;
+  }): Promise<IMatche | null> {
+    // Insira a nova partida em andamento no banco de dados
+    const newMatch = await this.model.create({
+      homeTeamId: matchData.homeTeamId,
+      awayTeamId: matchData.awayTeamId,
+      homeTeamGoals: matchData.homeTeamGoals,
+      awayTeamGoals: matchData.awayTeamGoals,
+      inProgress: true, // Marque a partida como em andamento
+    });
+
+    return newMatch;
+  }
 }
 
 // conteúdo conforme sessão 10 xD

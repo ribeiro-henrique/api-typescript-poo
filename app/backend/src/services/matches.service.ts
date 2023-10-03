@@ -39,4 +39,14 @@ export default class MatcheService {
     }
     return { status: 'SUCCESSFUL', data: 'Atualizado' };
   }
+
+  public async createMatch(matchData: {
+    homeTeamId: number;
+    awayTeamId: number;
+    homeTeamGoals: number;
+    awayTeamGoals: number;
+  }): Promise<ServiceResponse<IMatche | null>> {
+    const matchesCreated = await this.matcheModel.createMatch(matchData);
+    return { status: 'CREATED', data: matchesCreated };
+  }
 }
