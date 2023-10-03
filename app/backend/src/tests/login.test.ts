@@ -7,6 +7,8 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 import User from '../database/models/User';
 
+import { validUser, validBody, invalidEmail } from './mocks/users.mock';
+
 // import { Response } from 'superagent';
 
 const dado1 = [
@@ -23,21 +25,6 @@ const dado2 = [
   }
 ]
 
-const dado3 = [
-  {
-    "email": "admin@admin.com",
-    "password": "secret_admin"
-  }
-]
-
-const dado4 = [
-  {
-    "email": "henriqueribeiro@admin.com",
-    "password": "secret_admin"
-  }
-]
-
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjk1OTIwNDYyLCJleHAiOjE2OTYxNzk2NjJ9.TGfQVcTjleGRlT6lBMiVPfP-3oSlFlc4B05YhQUEWlw"
 
 chai.use(chaiHttp);
 
@@ -72,28 +59,28 @@ describe('TDD de Login', function () {
   })
 
   it('should return status 200 and an token', async () => {
-    sinon.stub(User, 'findOne').resolves(token as any)
+    sinon.stub(User, 'findOne').resolves(validUser as any)
 
     const { status, body } = await chai
     .request(app)
     .post('/login')
-    .send(dado3);
+    .send(validBody);
 
     expect(status).to.equal(200);
-    expect(body.message).to.deep.equal(token);
+    expect(body).to.have.key('token');
 
   })
 
   it('should return status 401 if not authorized', async () => {
-    sinon.stub(User, 'findOne').resolves()
+    sinon.stub(User, 'findOne').resolves(null)
 
     const { status, body } = await chai
     .request(app)
     .post('/login')
-    .send(dado4);
+    .send(invalidEmail);
 
     expect(status).to.equal(401);
-    expect(body.message).to.deep.equal({ "message": "Invalid email or password" });
+    expect(body.message).to.equal({ "message": "Invalid email or password" });
 
   })
 });

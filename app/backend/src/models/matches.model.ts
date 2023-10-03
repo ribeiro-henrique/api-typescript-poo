@@ -6,6 +6,8 @@ import Team from '../database/models/Teams';
 export default class MatcheModel implements IMatcheModel {
   private model = Matches;
 
+  // exemplo de select com join:
+
   async findAll(): Promise<IMatche[]> {
     const dbData = await this.model.findAll({
       include: [
