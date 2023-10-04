@@ -25,7 +25,7 @@ export default class MatcheService {
     const updatedMatches = await this.matcheModel.finishById(id);
 
     if (updatedMatches === 0) {
-      return { status: 'SUCCESSFUL', data: 'Deu ruim' };
+      return { status: 'SUCCESSFUL', data: 'not found' };
     }
     return { status: 'SUCCESSFUL', data: 'Finished' };
   }
@@ -37,7 +37,7 @@ export default class MatcheService {
     const updatedMatches = await this.matcheModel.updateMatch(id, matche);
 
     if (updatedMatches === 0) {
-      return { status: 'SUCCESSFUL', data: 'Deu ruim' };
+      return { status: 'SUCCESSFUL', data: 'not found' };
     }
     return { status: 'SUCCESSFUL', data: 'Atualizado' };
   }
